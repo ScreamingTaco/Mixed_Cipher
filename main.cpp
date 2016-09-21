@@ -20,13 +20,21 @@
 using std::cout;
 using std::endl;
 using std::cin;
+using std::string;
 
 int main(){
-    char shift_char;
+    /*char shift_char;
     int shift_amount;
     cout << "Plesae enter a character to be shifted" << endl;
     cin >> shift_char;
     cout << "Please enter shift amount" << endl;
     cin >> shift_amount;
     cout << shift_letter(shift_char, shift_amount) << endl;
+    */
+    srand (time(NULL)); //seed random # generator
+    string message;
+    cout << "Enter message for encryption with only alphabetic characters and no spaces" << endl;
+    cin >> message;
+    message = one_time_pad(message);
+    cout << message << endl;
 }

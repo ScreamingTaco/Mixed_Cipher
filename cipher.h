@@ -21,7 +21,7 @@
 #include <string>
 
 char shift_letter (char unshifted_char, int shift_amount);
-//int one_time_pad (auto message);
+std::string one_time_pad (std::string message);
 //int polyalphabetic (int ciphertext);
 //int rsa_encrypt (int encryption_target, int public_key); 
 
