@@ -60,10 +60,6 @@ char shift_letter (char unshifted_char, int shift_amount){
 }
 
 std::string one_time_pad (string message){
-    //std::default_random_engine generator;
-    //std::uniform_int_distribution<int> distribution(1,26);
-    //int shift_amount = distribution(generator);  // generates number from 1 to 26 
-    //char alphabet[26] = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
     for (int i = 0; i < message.length(); i++){// loop through each character
         char individual_char = message[i];
         if (isalpha(individual_char) == false) {
