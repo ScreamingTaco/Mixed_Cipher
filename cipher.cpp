@@ -19,7 +19,6 @@
 #include "cipher.h"
 #include <cctype>
 #include <iostream>
-//#include <random>
 #include <string>
 #include <cstdlib>
 using std::cout;
