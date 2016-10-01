@@ -1,4 +1,4 @@
-/*  Cipher - a cipher I made for a school project
+/*  Mixed_Cipher - a cipher I made for a school project
     Copyright (C) 2016  Carlos Vazquez
     
     This program is free software: you can redistribute it and/or modify
@@ -67,7 +67,7 @@ std::string one_time_pad (string message){
         }
         else {
         //int shift_amount = distribution(generator);
-        int shift_amount = rand() % 27 + 0;
+        int shift_amount = rand() % 27 + 0; //set shift amount to random amount
         cout << "Shifting " << individual_char << " by " << shift_amount << endl;
         message[i] = shift_letter (individual_char, shift_amount);// shift char by random amount
         }
@@ -75,3 +75,34 @@ std::string one_time_pad (string message){
     return message;
 }
 
+std::string polyalphabetic (std::string message, std::string word_key){
+    char alphabet[26] = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+    int word_key_index;
+    int k = 0;
+    for (int i = 0; i < message.length(); i++){// loop through each character
+        char individual_char = message[i];
+        if (isalpha(individual_char) == false) {
+            cout << "Error: Invalid Character" << endl;
+            continue;
+        }
+        else {
+        for (int j = 0; j <= 26; j++){ // find index position of word_key letter
+            if (alphabet[j] == word_key[k]){
+                word_key_index = j + 1; 
+                break;
+            }
+            else {
+            }
+        }
+        int shift_amount = word_key_index;//set shift amount to current letter of word_key
+        cout << "Shifting " << individual_char << " by " << shift_amount << endl;
+        message[i] = shift_letter (individual_char, shift_amount);// shift char by word_key letter
+        }
+        k++; // go to next letter of word_key
+        if (k > word_key.length()){//reset k when it reaches the end of the word 
+            k = 0;
+            continue;
+        }
+    }
+    return message;
+}

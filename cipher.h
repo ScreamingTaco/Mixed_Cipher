@@ -1,4 +1,4 @@
-/*  Cipher - a cipher I made for a school project
+/*  Mixed_Cipher - a cipher I made for a school project
     Copyright (C) 2016  Carlos Vazquez
     
     This program is free software: you can redistribute it and/or modify
@@ -22,7 +22,7 @@
 
 char shift_letter (char unshifted_char, int shift_amount);
 std::string one_time_pad (std::string message);
-//int polyalphabetic (int ciphertext);
+std::string polyalphabetic (std::string message, std::string word_key);
 //int rsa_encrypt (int encryption_target, int public_key); 
 
 
