@@ -45,7 +45,8 @@ int main(){
     while (tolower(continue_encrypting) == 'y'){
         char choice;
         cout << "NOTE: This program currently only supports lowercase alphabetic letters" << endl;
-        cout << "Would you like to encrypt with a one_time_pad, or a polyalphabetic shift cipher? (o/p)" << endl;
+        cout << "Would you like to encrypt with a one time pad, or a polyalphabetic shift cipher? (o/p)" << endl
+        << "Or decrypt a one time pad (d)" << endl;
         cin >> choice;
         switch (tolower(choice)){
             case 'p':
@@ -63,6 +64,10 @@ int main(){
                 message = one_time_pad(message);
                 cout << message << endl;
                 break;}
+            case 'd':
+            {message = decrypt_one_time_pad();
+            cout << message << endl;
+            break;}
             default:
             {cout << "Invalid input" << endl;
                 break;}

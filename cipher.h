@@ -21,8 +21,11 @@
 #include <string>
 
 char shift_letter (char unshifted_char, int shift_amount);
+char shift_letter_down (char unshifted_char, int shift_amount);
 std::string one_time_pad (std::string message);
 std::string polyalphabetic (std::string message, std::string word_key);
+std::string decrypt_one_time_pad ();
+//std::string decrypt_polyalphabetic (std::string shifts, message);
 //int rsa_encrypt (int encryption_target, int public_key); 
 
 

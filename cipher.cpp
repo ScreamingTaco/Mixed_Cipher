@@ -58,6 +58,40 @@ char shift_letter (char unshifted_char, int shift_amount){
     }
 }
 
+char shift_letter_down (char unshifted_char, int shift_amount){
+    char alphabet[26] = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+    char shifted_char;
+    if (isalpha(unshifted_char) == false){
+        cout << "Invalid character detected" << endl;
+        return '1';
+    }
+    else {
+        int unshifted_char_index;
+        for (int i = 0; i <= 26; i++){ // find index position of alphabet letter
+            if (alphabet[i] == unshifted_char){
+                //cout << "index = " << i << endl; //for debugging
+                unshifted_char_index = i + 1; 
+                break;
+            }
+            else {
+            }
+        }
+        tolower(unshifted_char);
+        if (unshifted_char_index + shift_amount <= 26){
+            shifted_char = alphabet[unshifted_char_index - shift_amount - 1]; //I know it seems redundant to subract 1 after adding it, but the program didnt work quite right without it
+            //cout << "less than 26" << endl; //for debugging
+            return shifted_char;
+        }
+        else if (unshifted_char_index + shift_amount > 26){
+            shifted_char = alphabet[(unshifted_char_index - shift_amount) - 27];// -27 instead of -26 was necessary
+            //cout << "greater than 26" << endl; //for debugging
+            return shifted_char;
+        }
+        
+    }
+    
+}
+
 std::string one_time_pad (string message){
     for (int i = 0; i < message.length(); i++){// loop through each character
         char individual_char = message[i];
@@ -104,5 +138,38 @@ std::string polyalphabetic (std::string message, std::string word_key){
             continue;
         }
     }
+    return message;
+}
+
+std::string decrypt_one_time_pad (){
+    string message;
+    string shifts;
+    int shift_amount = 0;
+    int index = 0;
+    int comma_index = 0;
+    cout << "Please enter the encrypted message" << endl;
+    std::cin >> message;
+    cout << "Please enter the shifts seperated by commas without spaces (EX: 2,5,12)" << endl;
+    std::cin >> shifts;
+    int* shift_array = new int[message.size()]();//number of shifts because one time pad has the same number of shifts as characters
+    for (int i = 0; i <= shifts.size(); i++){//parse shifts
+        if (shifts[i] == ','){index = i;}
+        else {
+            comma_index = shifts.find(',', index);
+            cout << shifts.substr(index, comma_index-index);
+            shift_amount = std::stoi(shifts.substr(index, comma_index+1));
+            for (int j = 0; j <= message.size(); j++){//add to shift_array
+                if (shift_array[j] == 0){
+                    shift_array[j] = shift_amount;
+                    break;
+                }
+                else {continue;}
+        }
+    }
+}
+    for (int k = 0; k <= message.size(); k++){//shift
+        message[k] == shift_letter_down(message[k], shift_array[k]);
+    }
+    delete[] shift_array;
     return message;
 }
