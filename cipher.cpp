@@ -69,7 +69,7 @@ char shift_letter_down (char unshifted_char, int shift_amount){
         int unshifted_char_index;
         for (int i = 0; i <= 26; i++){ // find index position of alphabet letter
             if (alphabet[i] == unshifted_char){
-                //cout << "index = " << i << endl; //for debugging
+                cout << "index = " << i << endl; //for debugging
                 unshifted_char_index = i + 1; 
                 break;
             }
@@ -77,17 +77,23 @@ char shift_letter_down (char unshifted_char, int shift_amount){
             }
         }
         tolower(unshifted_char);
-        if (unshifted_char_index + shift_amount <= 26){
-            shifted_char = alphabet[unshifted_char_index - shift_amount - 1]; //I know it seems redundant to subract 1 after adding it, but the program didnt work quite right without it
+        if (unshifted_char_index - shift_amount <= 26 && unshifted_char_index - shift_amount >= 0){
+            shifted_char = alphabet[(unshifted_char_index - shift_amount) - 1]; //I know it seems redundant to subract 1 after adding it, but the program didnt work quite right without it
             //cout << "less than 26" << endl; //for debugging
+            cout << shifted_char << endl; //for debugging
             return shifted_char;
         }
-        else if (unshifted_char_index + shift_amount > 26){
+        else if (unshifted_char_index - shift_amount > 26){
             shifted_char = alphabet[(unshifted_char_index - shift_amount) - 27];// -27 instead of -26 was necessary
             //cout << "greater than 26" << endl; //for debugging
+            cout << shifted_char << endl; //for debugging
             return shifted_char;
         }
-        
+        else if (unshifted_char_index - shift_amount < 0){
+            shifted_char = alphabet[(unshifted_char_index - shift_amount) + 25];//this works, so I dont touch it or question it
+            cout << shifted_char << endl; //for debugging
+            return shifted_char;
+        }
     }
     
 }
@@ -145,31 +151,21 @@ std::string decrypt_one_time_pad (){
     string message;
     string shifts;
     int shift_amount = 0;
-    int index = 0;
-    int comma_index = 0;
     cout << "Please enter the encrypted message" << endl;
     std::cin >> message;
-    cout << "Please enter the shifts seperated by commas without spaces (EX: 2,5,12)" << endl;
-    std::cin >> shifts;
-    int* shift_array = new int[message.size()]();//number of shifts because one time pad has the same number of shifts as characters
-    for (int i = 0; i <= shifts.size(); i++){//parse shifts
-        if (shifts[i] == ','){index = i;}
-        else {
-            comma_index = shifts.find(',', index);
-            cout << shifts.substr(index, comma_index-index);
-            shift_amount = std::stoi(shifts.substr(index, comma_index+1));
-            for (int j = 0; j <= message.size(); j++){//add to shift_array
-                if (shift_array[j] == 0){
-                    shift_array[j] = shift_amount;
-                    break;
-                }
-                else {continue;}
-        }
+    int* shift_array; 
+    shift_array = new int[message.size()];//number of shifts because one time pad has the same number of shifts as characters
+    for (int i = 0; i < message.size(); i++){
+        cout << "Please enter the " << i + 1 << " shift:" << endl;
+        std::cin >> shift_array[i];
+    } 
+    for (int k = 0; k < message.size(); k++){//shift
+        char individual_char = message[k];
+        int shift_amount = shift_array[k];
+        cout << "Shifting " << individual_char << " by " << shift_amount << endl; //for debugging
+        message[k] = shift_letter_down(individual_char, shift_amount);
     }
-}
-    for (int k = 0; k <= message.size(); k++){//shift
-        message[k] == shift_letter_down(message[k], shift_array[k]);
-    }
+    //cout << "Message: " << message << endl;//for debug
     delete[] shift_array;
     return message;
 }

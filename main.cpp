@@ -24,20 +24,7 @@ using std::cin;
 using std::string;
 
 int main(){
-    /*char shift_char;
-    int shift_amount;
-    cout << "Plesae enter a character to be shifted" << endl;
-    cin >> shift_char;
-    cout << "Please enter shift amount" << endl;
-    cin >> shift_amount;
-    cout << shift_letter(shift_char, shift_amount) << endl;
-    */
-    /*srand (time(NULL)); //seed random # generator
-    string message;
-    cout << "Enter message for encryption with only lowercase alphabetic characters and no spaces" << endl;
-    cin >> message;
-    message = one_time_pad(message);
-    cout << message << endl;*/
+    srand (time(NULL));
     cout << "Mixed_Cipher Copyright (C) 2016 Carlos Vaquez" << endl;
     cout << "This program comes with ABSOLUTELY NO WARRANTY" << endl << endl;
     char continue_encrypting = 'y';
@@ -46,7 +33,7 @@ int main(){
         char choice;
         cout << "NOTE: This program currently only supports lowercase alphabetic letters" << endl;
         cout << "Would you like to encrypt with a one time pad, or a polyalphabetic shift cipher? (o/p)" << endl
-        << "Or decrypt a one time pad (d)" << endl;
+        << "Or decrypt by shifts (d), decrypt one time pad (t)" << endl;
         cin >> choice;
         switch (tolower(choice)){
             case 'p':
@@ -65,9 +52,22 @@ int main(){
                 cout << message << endl;
                 break;}
             case 'd':
-            {message = decrypt_one_time_pad();
-            cout << message << endl;
+            {
+            char shifted_char;
+            int shift_amount;
+            cout << "Enter the shifted letter:" << endl;
+            cin >> shifted_char;
+            cout << "Enter the amount to shift down by" << endl;
+            cin >> shift_amount;
+            char decrypted_char = shift_letter_down(shifted_char, shift_amount);
+            cout << "That decrypts to " << decrypted_char << endl;
             break;}
+            case 't':
+            {
+                message = decrypt_one_time_pad();
+                cout << "Decrypted message: " << message << endl;
+                break;
+            }
             default:
             {cout << "Invalid input" << endl;
                 break;}
