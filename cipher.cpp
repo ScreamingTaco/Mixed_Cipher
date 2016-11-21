@@ -69,7 +69,7 @@ char shift_letter_down (char unshifted_char, int shift_amount){
         int unshifted_char_index;
         for (int i = 0; i <= 26; i++){ // find index position of alphabet letter
             if (alphabet[i] == unshifted_char){
-                cout << "index = " << i << endl; //for debugging
+                //cout << "index = " << i << endl; //for debugging
                 unshifted_char_index = i + 1; 
                 break;
             }
@@ -90,6 +90,8 @@ char shift_letter_down (char unshifted_char, int shift_amount){
             return shifted_char;
         }
         else if (unshifted_char_index - shift_amount < 0){
+			while (unshifted_char_index - shift_amount <= -26){
+				unshifted_char_index += 26;} 
             shifted_char = alphabet[(unshifted_char_index - shift_amount) + 25];//this works, so I dont touch it or question it
             cout << shifted_char << endl; //for debugging
             return shifted_char;
