@@ -171,3 +171,5 @@ std::string decrypt_one_time_pad (){
     delete[] shift_array;
     return message;
 }
+
+
